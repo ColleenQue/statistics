@@ -1,0 +1,234 @@
+---
+title: "Final Project"
+author: "Colleen Que and Ron Dumalagan"
+date: "12/14/2021"
+output: pdf_document
+---
+
+## 11.36a
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+summary(biomark)
+voplus <- biomark[[1]]
+vominus <- biomark[[2]]
+oc <- biomark[[3]]
+trap <- biomark[[5]]
+
+stem(voplus)
+stem(vominus)
+stem(oc)
+stem(trap)
+```
+
+## 11.36b
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+summary(biomark)
+voplus <- biomark[[1]]
+vominus <- biomark[[2]]
+oc <- biomark[[3]]
+trap <- biomark[[5]]
+
+plot(voplus, vominus, main="VO+ vs VO-", xlab="VO+", ylab="VO-")
+plot(voplus, oc, main="VO+ vs OC", xlab="VO+", ylab="OC")
+plot(voplus, trap, main="VO+ vs Trap", xlab="VO+", ylab="Trap")
+plot(vominus, oc, main="VO- vs OC", xlab="VO-", ylab="OC")
+plot(vominus, trap, main="VO- vs Trap", xlab="VO-", ylab="Trap")
+plot(oc, trap, main="OC vs Trap", xlab="OC", ylab="Trap")
+
+cor(voplus, vominus)
+cor(voplus, oc)
+cor(voplus, trap)
+cor(vominus, oc)
+cor(vominus, trap)
+cor(oc, trap)
+```
+
+## 11.37a
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+# summary(biomark)
+voplus <- biomark[[1]]
+vominus <- biomark[[2]]
+oc <- biomark[[3]]
+trap <- biomark[[5]]
+
+linreg <- lm(voplus~oc)
+summary(linreg)
+plot(linreg)
+```
+
+## 11.37b
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+# summary(biomark)
+voplus <- biomark[[1]]
+vominus <- biomark[[2]]
+oc <- biomark[[3]]
+trap <- biomark[[5]]
+
+linreg <- lm(voplus~oc+trap)
+summary(linreg)
+plot(linreg)
+```
+
+## 11.39
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+# summary(biomark)
+loc <- biomark[[4]]
+ltrap <- biomark[[6]]
+lvoplus <- biomark[[7]]
+lvominus <- biomark[[8]]
+
+stem(loc)
+stem(ltrap)
+stem(lvoplus)
+stem(lvominus)
+```
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+# summary(biomark)
+loc <- biomark[[4]]
+ltrap <- biomark[[6]]
+lvoplus <- biomark[[7]]
+lvominus <- biomark[[8]]
+
+plot(loc, ltrap, main="log(OC) vs log(TRAP)", xlab="log(OC)", ylab="log(TRAP)")
+plot(loc, lvoplus, main="log(OC) vs log(VO+)", xlab="log(OC)", ylab="log(VO+)")
+plot(loc, lvominus, main="log(OC) vs log(VO-)", xlab="log(OC)", ylab="log(VO-)")
+plot(ltrap, lvoplus, main="log(TRAP) vs log(VO+)", xlab="log(TRAP)", ylab="log(VO+)")
+plot(ltrap, lvominus, main="log(TRAP) vs log(VO-)", xlab="log(TRAP)", ylab="log(VO-)")
+plot(lvoplus, lvominus, main="log(VO+) vs log(VO-)", xlab="LVO+", ylab="log(VO-)")
+
+cor(loc, ltrap)
+cor(loc, lvoplus)
+cor(loc, lvominus)
+cor(ltrap, lvoplus)
+cor(ltrap, lvominus)
+cor(lvoplus, lvominus)
+```
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+# summary(biomark)
+loc <- biomark[[4]]
+ltrap <- biomark[[6]]
+lvoplus <- biomark[[7]]
+lvominus <- biomark[[8]]
+
+linreg <- lm(lvoplus~loc)
+summary(linreg)
+plot(linreg)
+```
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+# summary(biomark)
+loc <- biomark[[4]]
+ltrap <- biomark[[6]]
+lvoplus <- biomark[[7]]
+lvominus <- biomark[[8]]
+
+linreg <- lm(lvoplus~loc+ltrap)
+summary(linreg)
+plot(linreg)
+```
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+# summary(biomark)
+loc <- biomark[[4]]
+ltrap <- biomark[[6]]
+lvoplus <- biomark[[7]]
+lvominus <- biomark[[8]]
+
+linreg <- lm(lvoplus~loc+ltrap+lvominus)
+summary(linreg)
+plot(linreg)
+```
+```{r, echo = FALSE}
+library("readxl")
+biomark <- read_excel('C:/Users/Ron/Downloads/Biomark.xls')
+# summary(biomark)
+loc <- biomark[[4]]
+ltrap <- biomark[[6]]
+lvoplus <- biomark[[7]]
+lvominus <- biomark[[8]]
+
+linreg <- lm(lvoplus~loc+lvominus)
+summary(linreg)
+plot(linreg)
+```
+
+## 11.38, 11.40, 11.41
+```{r,echo = FALSE}
+?kable
+library(knitr)
+
+
+#38
+project = read.csv(file.choose())
+kable(head(project))
+
+
+lmplus = lm(voplus ~ vominus+oc+trap,data = project)
+summary(lmplus)
+anova(lmplus)
+
+
+lmplus1 = lm(voplus ~ vominus+oc,data = project)
+
+summary(lmplus1)
+anova(lmplus1)
+
+
+#40
+
+lm1 = lm(vominus ~ voplus+oc+trap,data = project)
+summary(lm1)
+anova(lm1)
+
+
+plot(lm1,which=1)
+plot(lm1,which=2)
+plot(lm1)
+
+
+
+
+lm2 = lm(vominus ~ oc+trap,data = project)
+summary(lm2)
+anova(lm2)
+
+
+lm3 = lm(vominus ~ oc+trap,data = project)
+summary(lm3)
+anova(lm3)
+
+#41
+
+lm4 = lm(lvominus ~ loc,data = project)
+summary(lm4)
+anova(lm4)
+
+plot(lm4,which=1)
+plot(lm4,which=2)
+plot(lm4)
+
+
+
+lm5 = lm(lvominus ~ loc+ltrap+lvoplus,data = project)
+summary(lm5)
+anova(lm5)
+
+lm6 = lm(lvominus ~ loc+lvoplus,data = project)
+summary(lm6)
+anova(lm6)
+```
